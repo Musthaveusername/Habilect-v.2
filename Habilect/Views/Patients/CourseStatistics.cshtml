@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Habilect.Attempts>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MotionStatistics</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxAngle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxProgress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompletedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Velocity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaneAngle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpinalAngle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoulderAngle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Motions.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sessions.Id)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxAngle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxProgress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Velocity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaneAngle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpinalAngle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShoulderAngle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sessions.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

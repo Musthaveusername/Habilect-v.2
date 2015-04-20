@@ -1,0 +1,51 @@
+﻿@model IQueryable<PatientSchedule>
+@{
+    ViewBag.Title = "Courses";
+    foreach (var a in Model)
+    {
+        ViewBag.Patient = a.Patients.Name;
+    }
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>Patient <b>@ViewBag.Patient</b></h4>
+<p>
+    @Html.ActionLink("Create New", "CreateCourse")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Plan date
+        </th>
+        <th>
+            Course name
+        </th>
+        <th>
+            Course order
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderBy(a => a.PlanDate))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanDate.Day).@Html.DisplayFor(modelItem => item.PlanDate.Month).@Html.DisplayFor(modelItem => item.PlanDate.Year)
+                (@Html.DisplayFor(modelItem => item.PlanDate.DayOfWeek))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseOrder)
+            </td>
+            <td>
+                @Html.ActionLink("Course Motions", "DisplayCourse", new { id = item.CourseId })
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

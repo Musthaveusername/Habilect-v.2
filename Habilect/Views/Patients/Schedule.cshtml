@@ -1,0 +1,38 @@
+﻿@model IQueryable<PatientSchedule>
+@{
+    ViewBag.Title = "Schedule";
+    foreach (var tit in Model)
+    {
+        ViewBag.Patient = tit.Patients.Name;
+    }
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>Patient <b>@ViewBag.Patient</b></h4>
+
+<table class="table">
+    <tr>
+        <th>
+            Plan Date
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanDate.Day).@Html.DisplayFor(modelItem => item.PlanDate.Month).@Html.DisplayFor(modelItem => item.PlanDate.Year)
+                (@Html.DisplayFor(modelItem => item.PlanDate.DayOfWeek))
+            </td>
+            <td>
+                @Html.ActionLink("Courses", "DateSchedule", new { plandate = item.PlanDate, patientid = item.PatientId }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

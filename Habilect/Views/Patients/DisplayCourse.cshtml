@@ -1,0 +1,112 @@
+﻿@model IQueryable<CourseMotions>
+@{
+    ViewBag.Title = "Display Course";
+    foreach (var a in Model)
+    {
+        ViewBag.Course = a.Courses.Name;
+        foreach (var b in a.Courses.PatientSchedule)
+        {
+            ViewBag.Patient = b.Patients.Name;
+        }
+    }
+}
+<h2>@ViewBag.Title</h2>
+
+<h4>Patient <b>@ViewBag.Patient</b></h4>
+<h4>Name <b>@ViewBag.Course</b></h4>
+
+<table class="table" border="0">
+    <tr>
+        <th>
+            Motion order
+        </th>
+        <th>
+            Motion name
+        </th>
+        <th>
+            Motion icon
+        </th>
+        <th>
+            Required count
+        </th>
+        <th>
+            Start angle
+        </th>
+        <th>
+            End angle
+        </th>
+        <th>
+            Spinal balance
+        </th>
+        <th>
+            Shoulder balance
+        </th>
+        <th>
+            Spine deviation
+        </th>
+        <th>
+            Shoulder deviation
+        </th>
+        <th>
+            Plane deviation
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model.OrderBy(a => a.MotionOrder))
+    {
+        var ImagePath = "../../Content/icons/" + item.Motions.MotionTemplates.Icon + ".png";
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotionOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.MotionTemplates.Name)
+            </td>
+            <td>
+                <img src="@ImagePath" height="64" width="64"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.StartAngle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.EndAngle)
+            </td>
+            <td align="center">
+                @if (item.Motions.CheckSpinalBalance)
+                {
+                    <i class="glyphicon glyphicon-ok"></i>
+                }
+            </td>
+            <td align="center">
+                @if (item.Motions.CheckShoulderBalance)
+                {
+                    <i class="glyphicon glyphicon-ok"></i>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.SpinalDeviation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.ShoulderDeviation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motions.PlaneDeviation)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+@*<div class="row" >
+    @foreach (var item in Model) { 
+    <div class="col-md-6"><h2>@Html.DisplayFor(modelItem => item.Motions.MotionTemplates.Name)</h2><p> yo </p></div>
+    <div class="col-md-6"><h2>banan</h2><p> yo </p></div>
+    <br/>
+    }
+</div>*@

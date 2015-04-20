@@ -1,0 +1,68 @@
+﻿@model IQueryable<PatientCourses>
+
+@{
+    ViewBag.Title = "Statistics";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>Patient <b>@ViewBag.Patient</b></h4>
+<hr />
+<h4><b>Active Courses</b></h4>
+<table class="table" border="0">
+    <tr>
+        <th>
+            Course number
+        </th>
+        <th>
+            Course Name
+        </th>
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model.OrderBy(a => a.PatientCourseOrder))*@
+        @foreach (var item in Model.Where(a => a.PatientCourseOrder != -1).OrderBy(a => a.PatientCourseOrder))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientCourseOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.Name)
+            </td>
+            <td align="right">
+                @Html.ActionLink("Course Statistics", "DisplayCourse", new { id = item.CourceId })
+            </td>
+        </tr>
+    }
+</table>
+<hr />
+<hr />
+<h4><b>Inactive Courses</b></h4>
+<h5><i>(Finished Courses)</i></h5>
+<table class="table" border="0">
+    <tr>
+        <th>
+            Course Name
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Where(a => a.PatientCourseOrder == -1))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.Name)
+            </td>
+            <th></th>
+            <td align="right">
+                @Html.ActionLink("Course Statistics", "CourseStatistics", new { id = item.CourceId })
+            </td>
+        </tr>
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

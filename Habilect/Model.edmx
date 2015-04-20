@@ -1,0 +1,1042 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="localHabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attempts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MotionId" Type="int" Nullable="false" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
+          <Property Name="MaxAngle" Type="float" Nullable="false" />
+          <Property Name="MaxProgress" Type="float" Nullable="false" />
+          <Property Name="CompletedTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Velocity" Type="float" Nullable="false" />
+          <Property Name="FinishedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlaneAngle" Type="float" Nullable="false" />
+          <Property Name="SpinalAngle" Type="float" Nullable="false" />
+          <Property Name="ShoulderAngle" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseMotions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="MotionId" Type="int" Nullable="false" />
+          <Property Name="RequiredCount" Type="int" Nullable="false" />
+          <Property Name="MotionOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Motions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="StartAngle" Type="int" Nullable="false" />
+          <Property Name="EndAngle" Type="int" Nullable="false" />
+          <Property Name="CheckSpinalBalance" Type="bit" Nullable="false" />
+          <Property Name="CheckShoulderBalance" Type="bit" Nullable="false" />
+          <Property Name="ShoulderDeviation" Type="int" Nullable="false" />
+          <Property Name="PlaneDeviation" Type="int" Nullable="false" />
+          <Property Name="SpinalDeviation" Type="int" Nullable="false" />
+          <Property Name="MotionTemplateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MotionTemplates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RotationPlane" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="AxisJoint" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RimJoint" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RimJoint2" Type="nvarchar" MaxLength="100" />
+          <Property Name="DefaultStartAngle" Type="int" Nullable="false" />
+          <Property Name="MinStartAngle" Type="int" Nullable="false" />
+          <Property Name="DefaultEndAngle" Type="int" Nullable="false" />
+          <Property Name="MaxEndAngle" Type="int" Nullable="false" />
+          <Property Name="StartDeviation" Type="int" Nullable="false" />
+          <Property Name="EndDeviation" Type="int" />
+          <Property Name="DefaultPlaneDeviation" Type="int" Nullable="false" />
+          <Property Name="DefaultSpinalDeviation" Type="int" Nullable="false" />
+          <Property Name="DefaultShoulderDeviation" Type="int" Nullable="false" />
+          <Property Name="DefaultCheckSpinalBalance" Type="bit" Nullable="false" />
+          <Property Name="DefaultCheckShoulderBalance" Type="bit" Nullable="false" />
+          <Property Name="ViewStartAngle" Type="int" Nullable="false" />
+          <Property Name="DefaultRequiredCount" Type="int" Nullable="false" />
+          <Property Name="Direction" Type="int" Nullable="false" />
+          <Property Name="InstructionIcon" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PatientCourses">
+          <Key>
+            <PropertyRef Name="PatientId" />
+            <PropertyRef Name="CourceId" />
+          </Key>
+          <Property Name="PatientId" Type="int" Nullable="false" />
+          <Property Name="CourceId" Type="int" Nullable="false" />
+          <Property Name="PatientCourseOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PatientDiagnostics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiagnosticsDate" Type="datetime" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+          <Property Name="MotionTemplateId" Type="int" Nullable="false" />
+          <Property Name="ResultAngle" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PatientSchedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanDate" Type="date" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="CourseOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sessions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="PatientScheduleId" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Attempts_Motions">
+          <End Role="Motions" Type="Self.Motions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Attempts" Type="Self.Attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attempts">
+              <PropertyRef Name="MotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attempts_Sessions">
+          <End Role="Sessions" Type="Self.Sessions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Attempts" Type="Self.Attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sessions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attempts">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMotions_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseMotions" Type="Self.CourseMotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseMotions">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMotions_Motions">
+          <End Role="Motions" Type="Self.Motions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseMotions" Type="Self.CourseMotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseMotions">
+              <PropertyRef Name="MotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctors_Admin">
+          <End Role="Admins" Type="Self.Admins" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motions_MotionTemplates">
+          <End Role="MotionTemplates" Type="Self.MotionTemplates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Motions" Type="Self.Motions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotionTemplates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Motions">
+              <PropertyRef Name="MotionTemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientCourses_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientCourses" Type="Self.PatientCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientCourses">
+              <PropertyRef Name="CourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientCourses_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientCourses" Type="Self.PatientCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientCourses">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientDiagnostics_MotionTemplates">
+          <End Role="MotionTemplates" Type="Self.MotionTemplates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientDiagnostics" Type="Self.PatientDiagnostics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotionTemplates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientDiagnostics">
+              <PropertyRef Name="MotionTemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientDiagnostics_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientDiagnostics" Type="Self.PatientDiagnostics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientDiagnostics">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Doctors">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientSchedule_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientSchedule" Type="Self.PatientSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientSchedule">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientSchedule_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientSchedule" Type="Self.PatientSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientSchedule">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessions_PatientSchedule">
+          <End Role="PatientSchedule" Type="Self.PatientSchedule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sessions" Type="Self.Sessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientSchedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessions">
+              <PropertyRef Name="PatientScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="localHabModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attempts" EntityType="Self.Attempts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseMotions" EntityType="Self.CourseMotions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motions" EntityType="Self.Motions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MotionTemplates" EntityType="Self.MotionTemplates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientCourses" EntityType="Self.PatientCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientDiagnostics" EntityType="Self.PatientDiagnostics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientSchedule" EntityType="Self.PatientSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sessions" EntityType="Self.Sessions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Attempts_Motions" Association="Self.FK_Attempts_Motions">
+            <End Role="Motions" EntitySet="Motions" />
+            <End Role="Attempts" EntitySet="Attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attempts_Sessions" Association="Self.FK_Attempts_Sessions">
+            <End Role="Sessions" EntitySet="Sessions" />
+            <End Role="Attempts" EntitySet="Attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMotions_Courses" Association="Self.FK_CourseMotions_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseMotions" EntitySet="CourseMotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMotions_Motions" Association="Self.FK_CourseMotions_Motions">
+            <End Role="Motions" EntitySet="Motions" />
+            <End Role="CourseMotions" EntitySet="CourseMotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctors_Admin" Association="Self.FK_Doctors_Admin">
+            <End Role="Admins" EntitySet="Admins" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motions_MotionTemplates" Association="Self.FK_Motions_MotionTemplates">
+            <End Role="MotionTemplates" EntitySet="MotionTemplates" />
+            <End Role="Motions" EntitySet="Motions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientCourses_Courses" Association="Self.FK_PatientCourses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="PatientCourses" EntitySet="PatientCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientCourses_Patients" Association="Self.FK_PatientCourses_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientCourses" EntitySet="PatientCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientDiagnostics_MotionTemplates" Association="Self.FK_PatientDiagnostics_MotionTemplates">
+            <End Role="MotionTemplates" EntitySet="MotionTemplates" />
+            <End Role="PatientDiagnostics" EntitySet="PatientDiagnostics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientDiagnostics_Patients" Association="Self.FK_PatientDiagnostics_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientDiagnostics" EntitySet="PatientDiagnostics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Doctors" Association="Self.FK_Patients_Doctors">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientSchedule_Courses" Association="Self.FK_PatientSchedule_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="PatientSchedule" EntitySet="PatientSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientSchedule_Patients" Association="Self.FK_PatientSchedule_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientSchedule" EntitySet="PatientSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessions_PatientSchedule" Association="Self.FK_Sessions_PatientSchedule">
+            <End Role="PatientSchedule" EntitySet="PatientSchedule" />
+            <End Role="Sessions" EntitySet="Sessions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="localHabModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctors_Admin" FromRole="Admins" ToRole="Doctors" />
+        </EntityType>
+        <EntityType Name="Attempts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MotionId" Type="Int32" Nullable="false" />
+          <Property Name="SessionId" Type="Int32" Nullable="false" />
+          <Property Name="MaxAngle" Type="Double" Nullable="false" />
+          <Property Name="MaxProgress" Type="Double" Nullable="false" />
+          <Property Name="CompletedTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Velocity" Type="Double" Nullable="false" />
+          <Property Name="FinishedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlaneAngle" Type="Double" Nullable="false" />
+          <Property Name="SpinalAngle" Type="Double" Nullable="false" />
+          <Property Name="ShoulderAngle" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Motions" Relationship="Self.FK_Attempts_Motions" FromRole="Attempts" ToRole="Motions" />
+          <NavigationProperty Name="Sessions" Relationship="Self.FK_Attempts_Sessions" FromRole="Attempts" ToRole="Sessions" />
+        </EntityType>
+        <EntityType Name="CourseMotions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="MotionId" Type="Int32" Nullable="false" />
+          <Property Name="RequiredCount" Type="Int32" Nullable="false" />
+          <Property Name="MotionOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_CourseMotions_Courses" FromRole="CourseMotions" ToRole="Courses" />
+          <NavigationProperty Name="Motions" Relationship="Self.FK_CourseMotions_Motions" FromRole="CourseMotions" ToRole="Motions" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CourseMotions" Relationship="Self.FK_CourseMotions_Courses" FromRole="Courses" ToRole="CourseMotions" />
+          <NavigationProperty Name="PatientCourses" Relationship="Self.FK_PatientCourses_Courses" FromRole="Courses" ToRole="PatientCourses" />
+          <NavigationProperty Name="PatientSchedule" Relationship="Self.FK_PatientSchedule_Courses" FromRole="Courses" ToRole="PatientSchedule" />
+        </EntityType>
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK_Doctors_Admin" FromRole="Doctors" ToRole="Admins" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_Patients_Doctors" FromRole="Doctors" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Motions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="StartAngle" Type="Int32" Nullable="false" />
+          <Property Name="EndAngle" Type="Int32" Nullable="false" />
+          <Property Name="CheckSpinalBalance" Type="Boolean" Nullable="false" />
+          <Property Name="CheckShoulderBalance" Type="Boolean" Nullable="false" />
+          <Property Name="ShoulderDeviation" Type="Int32" Nullable="false" />
+          <Property Name="PlaneDeviation" Type="Int32" Nullable="false" />
+          <Property Name="SpinalDeviation" Type="Int32" Nullable="false" />
+          <Property Name="MotionTemplateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Attempts" Relationship="Self.FK_Attempts_Motions" FromRole="Motions" ToRole="Attempts" />
+          <NavigationProperty Name="CourseMotions" Relationship="Self.FK_CourseMotions_Motions" FromRole="Motions" ToRole="CourseMotions" />
+          <NavigationProperty Name="MotionTemplates" Relationship="Self.FK_Motions_MotionTemplates" FromRole="Motions" ToRole="MotionTemplates" />
+        </EntityType>
+        <EntityType Name="MotionTemplates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Icon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RotationPlane" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AxisJoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RimJoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RimJoint2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultStartAngle" Type="Int32" Nullable="false" />
+          <Property Name="MinStartAngle" Type="Int32" Nullable="false" />
+          <Property Name="DefaultEndAngle" Type="Int32" Nullable="false" />
+          <Property Name="MaxEndAngle" Type="Int32" Nullable="false" />
+          <Property Name="StartDeviation" Type="Int32" Nullable="false" />
+          <Property Name="EndDeviation" Type="Int32" />
+          <Property Name="DefaultPlaneDeviation" Type="Int32" Nullable="false" />
+          <Property Name="DefaultSpinalDeviation" Type="Int32" Nullable="false" />
+          <Property Name="DefaultShoulderDeviation" Type="Int32" Nullable="false" />
+          <Property Name="DefaultCheckSpinalBalance" Type="Boolean" Nullable="false" />
+          <Property Name="DefaultCheckShoulderBalance" Type="Boolean" Nullable="false" />
+          <Property Name="ViewStartAngle" Type="Int32" Nullable="false" />
+          <Property Name="DefaultRequiredCount" Type="Int32" Nullable="false" />
+          <Property Name="Direction" Type="Int32" Nullable="false" />
+          <Property Name="InstructionIcon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Motions" Relationship="Self.FK_Motions_MotionTemplates" FromRole="MotionTemplates" ToRole="Motions" />
+          <NavigationProperty Name="PatientDiagnostics" Relationship="Self.FK_PatientDiagnostics_MotionTemplates" FromRole="MotionTemplates" ToRole="PatientDiagnostics" />
+        </EntityType>
+        <EntityType Name="PatientCourses">
+          <Key>
+            <PropertyRef Name="PatientId" />
+            <PropertyRef Name="CourceId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <Property Name="CourceId" Type="Int32" Nullable="false" />
+          <Property Name="PatientCourseOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_PatientCourses_Courses" FromRole="PatientCourses" ToRole="Courses" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_PatientCourses_Patients" FromRole="PatientCourses" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="PatientDiagnostics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiagnosticsDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <Property Name="MotionTemplateId" Type="Int32" Nullable="false" />
+          <Property Name="ResultAngle" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MotionTemplates" Relationship="Self.FK_PatientDiagnostics_MotionTemplates" FromRole="PatientDiagnostics" ToRole="MotionTemplates" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_PatientDiagnostics_Patients" FromRole="PatientDiagnostics" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Patients_Doctors" FromRole="Patients" ToRole="Doctors" />
+          <NavigationProperty Name="PatientCourses" Relationship="Self.FK_PatientCourses_Patients" FromRole="Patients" ToRole="PatientCourses" />
+          <NavigationProperty Name="PatientDiagnostics" Relationship="Self.FK_PatientDiagnostics_Patients" FromRole="Patients" ToRole="PatientDiagnostics" />
+          <NavigationProperty Name="PatientSchedule" Relationship="Self.FK_PatientSchedule_Patients" FromRole="Patients" ToRole="PatientSchedule" />
+        </EntityType>
+        <EntityType Name="PatientSchedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="CourseOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_PatientSchedule_Courses" FromRole="PatientSchedule" ToRole="Courses" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_PatientSchedule_Patients" FromRole="PatientSchedule" ToRole="Patients" />
+          <NavigationProperty Name="Sessions" Relationship="Self.FK_Sessions_PatientSchedule" FromRole="PatientSchedule" ToRole="Sessions" />
+        </EntityType>
+        <EntityType Name="Sessions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="PatientScheduleId" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Attempts" Relationship="Self.FK_Attempts_Sessions" FromRole="Sessions" ToRole="Attempts" />
+          <NavigationProperty Name="PatientSchedule" Relationship="Self.FK_Sessions_PatientSchedule" FromRole="Sessions" ToRole="PatientSchedule" />
+        </EntityType>
+        <Association Name="FK_Doctors_Admin">
+          <End Role="Admins" Type="Self.Admins" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attempts_Motions">
+          <End Role="Motions" Type="Self.Motions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Attempts" Type="Self.Attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attempts">
+              <PropertyRef Name="MotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attempts_Sessions">
+          <End Role="Sessions" Type="Self.Sessions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Attempts" Type="Self.Attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sessions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attempts">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMotions_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseMotions" Type="Self.CourseMotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseMotions">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMotions_Motions">
+          <End Role="Motions" Type="Self.Motions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseMotions" Type="Self.CourseMotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseMotions">
+              <PropertyRef Name="MotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientCourses_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientCourses" Type="Self.PatientCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientCourses">
+              <PropertyRef Name="CourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientSchedule_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientSchedule" Type="Self.PatientSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientSchedule">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Doctors">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motions_MotionTemplates">
+          <End Role="MotionTemplates" Type="Self.MotionTemplates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Motions" Type="Self.Motions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotionTemplates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Motions">
+              <PropertyRef Name="MotionTemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientDiagnostics_MotionTemplates">
+          <End Role="MotionTemplates" Type="Self.MotionTemplates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientDiagnostics" Type="Self.PatientDiagnostics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotionTemplates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientDiagnostics">
+              <PropertyRef Name="MotionTemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientCourses_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientCourses" Type="Self.PatientCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientCourses">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientDiagnostics_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientDiagnostics" Type="Self.PatientDiagnostics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientDiagnostics">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientSchedule_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientSchedule" Type="Self.PatientSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientSchedule">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessions_PatientSchedule">
+          <End Role="PatientSchedule" Type="Self.PatientSchedule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sessions" Type="Self.Sessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientSchedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessions">
+              <PropertyRef Name="PatientScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="localHabEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admins" />
+          <EntitySet Name="Attempts" EntityType="Self.Attempts" />
+          <EntitySet Name="CourseMotions" EntityType="Self.CourseMotions" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" />
+          <EntitySet Name="Motions" EntityType="Self.Motions" />
+          <EntitySet Name="MotionTemplates" EntityType="Self.MotionTemplates" />
+          <EntitySet Name="PatientCourses" EntityType="Self.PatientCourses" />
+          <EntitySet Name="PatientDiagnostics" EntityType="Self.PatientDiagnostics" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" />
+          <EntitySet Name="PatientSchedule" EntityType="Self.PatientSchedule" />
+          <EntitySet Name="Sessions" EntityType="Self.Sessions" />
+          <AssociationSet Name="FK_Doctors_Admin" Association="Self.FK_Doctors_Admin">
+            <End Role="Admins" EntitySet="Admins" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attempts_Motions" Association="Self.FK_Attempts_Motions">
+            <End Role="Motions" EntitySet="Motions" />
+            <End Role="Attempts" EntitySet="Attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attempts_Sessions" Association="Self.FK_Attempts_Sessions">
+            <End Role="Sessions" EntitySet="Sessions" />
+            <End Role="Attempts" EntitySet="Attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMotions_Courses" Association="Self.FK_CourseMotions_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseMotions" EntitySet="CourseMotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMotions_Motions" Association="Self.FK_CourseMotions_Motions">
+            <End Role="Motions" EntitySet="Motions" />
+            <End Role="CourseMotions" EntitySet="CourseMotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientCourses_Courses" Association="Self.FK_PatientCourses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="PatientCourses" EntitySet="PatientCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientSchedule_Courses" Association="Self.FK_PatientSchedule_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="PatientSchedule" EntitySet="PatientSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Doctors" Association="Self.FK_Patients_Doctors">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motions_MotionTemplates" Association="Self.FK_Motions_MotionTemplates">
+            <End Role="MotionTemplates" EntitySet="MotionTemplates" />
+            <End Role="Motions" EntitySet="Motions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientDiagnostics_MotionTemplates" Association="Self.FK_PatientDiagnostics_MotionTemplates">
+            <End Role="MotionTemplates" EntitySet="MotionTemplates" />
+            <End Role="PatientDiagnostics" EntitySet="PatientDiagnostics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientCourses_Patients" Association="Self.FK_PatientCourses_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientCourses" EntitySet="PatientCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientDiagnostics_Patients" Association="Self.FK_PatientDiagnostics_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientDiagnostics" EntitySet="PatientDiagnostics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientSchedule_Patients" Association="Self.FK_PatientSchedule_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientSchedule" EntitySet="PatientSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessions_PatientSchedule" Association="Self.FK_Sessions_PatientSchedule">
+            <End Role="PatientSchedule" EntitySet="PatientSchedule" />
+            <End Role="Sessions" EntitySet="Sessions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="localHabModelStoreContainer" CdmEntityContainer="localHabEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="localHabModel.Admins">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attempts">
+            <EntityTypeMapping TypeName="localHabModel.Attempts">
+              <MappingFragment StoreEntitySet="Attempts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MotionId" ColumnName="MotionId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="MaxAngle" ColumnName="MaxAngle" />
+                <ScalarProperty Name="MaxProgress" ColumnName="MaxProgress" />
+                <ScalarProperty Name="CompletedTime" ColumnName="CompletedTime" />
+                <ScalarProperty Name="Velocity" ColumnName="Velocity" />
+                <ScalarProperty Name="FinishedBy" ColumnName="FinishedBy" />
+                <ScalarProperty Name="PlaneAngle" ColumnName="PlaneAngle" />
+                <ScalarProperty Name="SpinalAngle" ColumnName="SpinalAngle" />
+                <ScalarProperty Name="ShoulderAngle" ColumnName="ShoulderAngle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseMotions">
+            <EntityTypeMapping TypeName="localHabModel.CourseMotions">
+              <MappingFragment StoreEntitySet="CourseMotions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="MotionId" ColumnName="MotionId" />
+                <ScalarProperty Name="RequiredCount" ColumnName="RequiredCount" />
+                <ScalarProperty Name="MotionOrder" ColumnName="MotionOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="localHabModel.Courses">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="localHabModel.Doctors">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motions">
+            <EntityTypeMapping TypeName="localHabModel.Motions">
+              <MappingFragment StoreEntitySet="Motions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartAngle" ColumnName="StartAngle" />
+                <ScalarProperty Name="EndAngle" ColumnName="EndAngle" />
+                <ScalarProperty Name="CheckSpinalBalance" ColumnName="CheckSpinalBalance" />
+                <ScalarProperty Name="CheckShoulderBalance" ColumnName="CheckShoulderBalance" />
+                <ScalarProperty Name="ShoulderDeviation" ColumnName="ShoulderDeviation" />
+                <ScalarProperty Name="PlaneDeviation" ColumnName="PlaneDeviation" />
+                <ScalarProperty Name="SpinalDeviation" ColumnName="SpinalDeviation" />
+                <ScalarProperty Name="MotionTemplateId" ColumnName="MotionTemplateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MotionTemplates">
+            <EntityTypeMapping TypeName="localHabModel.MotionTemplates">
+              <MappingFragment StoreEntitySet="MotionTemplates">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="RotationPlane" ColumnName="RotationPlane" />
+                <ScalarProperty Name="AxisJoint" ColumnName="AxisJoint" />
+                <ScalarProperty Name="RimJoint" ColumnName="RimJoint" />
+                <ScalarProperty Name="RimJoint2" ColumnName="RimJoint2" />
+                <ScalarProperty Name="DefaultStartAngle" ColumnName="DefaultStartAngle" />
+                <ScalarProperty Name="MinStartAngle" ColumnName="MinStartAngle" />
+                <ScalarProperty Name="DefaultEndAngle" ColumnName="DefaultEndAngle" />
+                <ScalarProperty Name="MaxEndAngle" ColumnName="MaxEndAngle" />
+                <ScalarProperty Name="StartDeviation" ColumnName="StartDeviation" />
+                <ScalarProperty Name="EndDeviation" ColumnName="EndDeviation" />
+                <ScalarProperty Name="DefaultPlaneDeviation" ColumnName="DefaultPlaneDeviation" />
+                <ScalarProperty Name="DefaultSpinalDeviation" ColumnName="DefaultSpinalDeviation" />
+                <ScalarProperty Name="DefaultShoulderDeviation" ColumnName="DefaultShoulderDeviation" />
+                <ScalarProperty Name="DefaultCheckSpinalBalance" ColumnName="DefaultCheckSpinalBalance" />
+                <ScalarProperty Name="DefaultCheckShoulderBalance" ColumnName="DefaultCheckShoulderBalance" />
+                <ScalarProperty Name="ViewStartAngle" ColumnName="ViewStartAngle" />
+                <ScalarProperty Name="DefaultRequiredCount" ColumnName="DefaultRequiredCount" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="InstructionIcon" ColumnName="InstructionIcon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientCourses">
+            <EntityTypeMapping TypeName="localHabModel.PatientCourses">
+              <MappingFragment StoreEntitySet="PatientCourses">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="CourceId" ColumnName="CourceId" />
+                <ScalarProperty Name="PatientCourseOrder" ColumnName="PatientCourseOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientDiagnostics">
+            <EntityTypeMapping TypeName="localHabModel.PatientDiagnostics">
+              <MappingFragment StoreEntitySet="PatientDiagnostics">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DiagnosticsDate" ColumnName="DiagnosticsDate" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="MotionTemplateId" ColumnName="MotionTemplateId" />
+                <ScalarProperty Name="ResultAngle" ColumnName="ResultAngle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="localHabModel.Patients">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientSchedule">
+            <EntityTypeMapping TypeName="localHabModel.PatientSchedule">
+              <MappingFragment StoreEntitySet="PatientSchedule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PlanDate" ColumnName="PlanDate" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseOrder" ColumnName="CourseOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sessions">
+            <EntityTypeMapping TypeName="localHabModel.Sessions">
+              <MappingFragment StoreEntitySet="Sessions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="PatientScheduleId" ColumnName="PatientScheduleId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

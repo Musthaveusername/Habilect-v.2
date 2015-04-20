@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>HABILECT</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Login</h2>
+        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-primary btn-lg", @onfocus = "this.blur()" })
+       </div>
+    <div class="col-md-4">
+        <h2>View Clinics</h2>
+        @Html.ActionLink("Clinics", "Index", "Admins", null, new { @class = "btn btn-primary btn-lg", @onfocus = "this.blur()" })
+    </div>
+    <div class="col-md-4">
+        <h2>View doctors</h2>
+        @Html.ActionLink("Doctors", "Index", "Doctors", null, new { @class = "btn btn-primary btn-lg", @onfocus = "this.blur()" })
+    </div>
+    <div class="col-md-4">
+        <h2>View patients</h2>
+        @Html.ActionLink("Patients", "Index", "Patients", null, new { @class = "btn btn-primary btn-lg", @onfocus = "this.blur()" })
+    </div>
+</div>
